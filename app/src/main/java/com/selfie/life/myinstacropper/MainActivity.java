@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         mInstaCropper = (InstaCropperView) findViewById(R.id.instacropper);
+
     }
 
     public void pickPhoto(View v) {
