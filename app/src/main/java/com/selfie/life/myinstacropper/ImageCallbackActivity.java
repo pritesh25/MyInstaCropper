@@ -12,16 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.selfie.life.myinstacropper.Library.InstaCropperActivity;
+import com.selfie.life.myinstacropper.Library.ImageCropperActivity;
 import com.selfie.life.myinstacropper.Library.InstaCropperView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class ImageCallbackActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = ImageCallbackActivity.class.getSimpleName();
 
     private InstaCropperView mInstaCropper;
 
@@ -40,13 +40,20 @@ public class MainActivity extends AppCompatActivity {
         pickPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 1);
+                ImageBrowse();
             }
         });
 
+        ImageBrowse();
+
+    }
+
+    private void ImageBrowse()
+    {
+        Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
     }
 
 
@@ -57,16 +64,30 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
-                    Intent intent = InstaCropperActivity.getIntent(this, data.getData(), Uri.fromFile(new File(getExternalCacheDir(), "test.jpg")), 720, 50);
+                    Intent intent = ImageCropperActivity.getIntent(this, data.getData(), Uri.fromFile(new File(getExternalCacheDir(), "test.jpg")), 720, 50);
                     startActivityForResult(intent, 2);
                 }
-                return;
+                else
+                {
+                    Log.d(TAG,"requestCode 1 is not executed , finish called , since no image is selected");
+                    finish();
+                }
+                break;
             case 2:
                 if (resultCode == RESULT_OK) {
+                    Log.d(TAG,"resultCode 2, data = "+data.getData());
                     mInstaCropper.setImageUri(data.getData());
                 }
-                return;
-            default:finish();break;
+                else
+                {
+                    Log.d(TAG,"requestCode 2 is not executed , finish called , since no image is selected");
+                    finish();
+                }
+                break;
+            default:
+                Log.d(TAG,"finish called , since no image is selected");
+                finish();
+            break;
         }
     }
 
@@ -74,32 +95,29 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG,"cropped file path = "+getFile());
 
-        mInstaCropper.crop(View.MeasureSpec.makeMeasureSpec(720, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), new InstaCropperView.BitmapCallback() {
-
+        mInstaCropper.crop(View.MeasureSpec.makeMeasureSpec(720, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), new InstaCropperView.BitmapCallback()
+        {
             @Override
-            public void onBitmapReady(Bitmap bitmap) {
+            public void onBitmapReady(Bitmap bitmap)
+            {
                 if (bitmap == null) {
-                    Toast.makeText(MainActivity.this, "Returned bitmap is null.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ImageCallbackActivity.this, "Returned bitmap is null.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 File file = getFile();
-
                 try {
                     FileOutputStream os = new FileOutputStream(file);
-
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, os);
-
                     os.flush();
                     os.close();
-
                     mInstaCropper.setImageUri(Uri.fromFile(file));
-
                     Log.d(TAG, "Image updated.");
                 } catch (IOException e) {
-                    Log.e(TAG, "Failed to compress bitmap.", e);
+                    Log.e(TAG, "Failed to compress bitmap = "+e.getMessage());
                 }
             }
+
 
         });
     }

@@ -4,14 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +21,7 @@ import java.io.OutputStream;
  * Created by Yashar on 3/11/2017.
  */
 
-public class InstaCropperActivity extends Activity {
+public class ImageCropperActivity extends Activity {
 
     private static final int DEFAULT_OUTPUT_QUALITY = 50;
 
@@ -68,7 +64,7 @@ public class InstaCropperActivity extends Activity {
     public static Intent getIntent(Context context, Uri src, Uri dst,
                                    float preferredRatio, float minimumRatio, float maximumRatio,
                                    int widthSpec, int heightSpec, int outputQuality) {
-        Intent intent = new Intent(context, InstaCropperActivity.class);
+        Intent intent = new Intent(context, ImageCropperActivity.class);
 
         intent.setData(src);
 
