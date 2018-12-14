@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.selfie.life.myinstacropper.Library.InstaCropperActivity;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private InstaCropperView mInstaCropper;
 
+    private Button pickPhoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,17 +34,26 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        mInstaCropper = (InstaCropperView) findViewById(R.id.instacropper);
+        mInstaCropper   = findViewById(R.id.instacropper);
+        pickPhoto       = findViewById(R.id.pickPhoto);
+        pickPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 1);
+            }
+        });
 
     }
 
-    public void pickPhoto(View v) {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(intent, 1);
-
-    }
+//    public void pickPhoto(View v) {
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(intent, 1);
+//
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
