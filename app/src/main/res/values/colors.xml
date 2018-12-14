@@ -5,6 +5,5 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="instacropper_cropper_background">@android:color/white</color>
-    <color name="instacropper_crop_color">@android:color/black</color>
 
 </resources>

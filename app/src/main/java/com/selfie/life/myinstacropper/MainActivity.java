@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private InstaCropperView mInstaCropper;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         mInstaCropper   = findViewById(R.id.instacropper);
+
         pickPhoto       = findViewById(R.id.pickPhoto);
         pickPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,12 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public void pickPhoto(View v) {
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(intent, 1);
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -100,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                     mInstaCropper.setImageUri(Uri.fromFile(file));
 
-                    Log.i(TAG, "Image updated.");
+                    Log.d(TAG, "Image updated.");
                 } catch (IOException e) {
                     Log.e(TAG, "Failed to compress bitmap.", e);
                 }
