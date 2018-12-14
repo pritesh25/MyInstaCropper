@@ -112,7 +112,7 @@ public class ImageCallbackActivity extends AppCompatActivity {
                     os.flush();
                     os.close();
                     mInstaCropper.setImageUri(Uri.fromFile(file));
-                    Log.d(TAG, "Image updated.");
+                    Log.d(TAG, "Image updated , final image path = "+file.toString());
                 } catch (IOException e) {
                     Log.e(TAG, "Failed to compress bitmap = "+e.getMessage());
                 }
