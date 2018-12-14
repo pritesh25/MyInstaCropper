@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper.Library;
+package com.selfie.life.myinstacropper.Lib;
 
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;

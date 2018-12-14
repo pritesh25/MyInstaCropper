@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper.Library;
+package com.selfie.life.myinstacropper.Lib;
 
 import android.content.Context;
 import android.database.Cursor;

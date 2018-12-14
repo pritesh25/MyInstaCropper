@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper;
+package com.selfie.life.myinstacropper.Lib;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,8 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.selfie.life.myinstacropper.Library.ImageCropperActivity;
-import com.selfie.life.myinstacropper.Library.InstaCropperView;
+import com.selfie.life.myinstacropper.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,7 +29,7 @@ public class ImageCallbackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_instacallback);
 
         getSupportActionBar().hide();
 
@@ -48,14 +47,12 @@ public class ImageCallbackActivity extends AppCompatActivity {
 
     }
 
-    private void ImageBrowse()
-    {
+    private void ImageBrowse() {
         Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,6 +110,12 @@ public class ImageCallbackActivity extends AppCompatActivity {
                     os.close();
                     mInstaCropper.setImageUri(Uri.fromFile(file));
                     Log.d(TAG, "Image updated , final image path = "+file.toString());
+
+                    Intent intent = getIntent();
+                    intent.putExtra("message",file.toString());
+                    setResult(RESULT_OK, intent);
+                    finish();
+
                 } catch (IOException e) {
                     Log.e(TAG, "Failed to compress bitmap = "+e.getMessage());
                 }
@@ -125,5 +128,4 @@ public class ImageCallbackActivity extends AppCompatActivity {
     private File getFile() {
         return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "instaCropper.jpg");
     }
-
 }

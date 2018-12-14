@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.selfie.life.myinstacropper.Library.InstaCropperView
+    <com.selfie.life.myinstacropper.Lib.InstaCropperView
         android:id="@+id/instacropper"
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
