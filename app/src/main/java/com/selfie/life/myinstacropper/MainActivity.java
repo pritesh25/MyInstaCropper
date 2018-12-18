@@ -12,6 +12,8 @@ import com.selfie.life.myinstacropper.CropLib.ImageCallbackActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    //editted by patil
+
     private static final String TAG = MainActivity.class.getSimpleName();
     Button button;
 
