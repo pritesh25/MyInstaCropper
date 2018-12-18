@@ -36,12 +36,12 @@ public class FiltersListFragment extends Fragment implements ThumbnailsAdapter.T
 
     FiltersListFragmentListener listener;
 
-    public void setListener(FiltersListFragmentListener listener) {
-        this.listener = listener;
-    }
-
     public FiltersListFragment() {
         // Required empty public constructor
+    }
+
+    public void setListener(FiltersListFragmentListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class FiltersListFragment extends Fragment implements ThumbnailsAdapter.T
         //ButterKnife.bind(this, view);
 
         thumbnailItemList = new ArrayList<>();
-        Log.d(TAG,"");
+        Log.d(TAG, "");
         mAdapter = new ThumbnailsAdapter(getActivity(), thumbnailItemList, this);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,getResources().getDisplayMetrics());
+        int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
         recyclerView.addItemDecoration(new SpacesItemDecoration(space));
         recyclerView.setAdapter(mAdapter);
 
@@ -86,19 +86,18 @@ public class FiltersListFragment extends Fragment implements ThumbnailsAdapter.T
                 Bitmap thumbImage;
 
                 if (bitmap == null) {
-                    Log.d(TAG,"bitmap is null");
+                    Log.d(TAG, "bitmap is null");
 
                     BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-                  //  thumbImage = BitmapUtils.getBitmapFromAssets(getActivity(), MainFilterActivity.IMAGE_NAME, 100, 100);
-                    thumbImage = BitmapFactory.decodeFile(MainFilterActivity.imagePathonly1,btmapOptions);
+                    //  thumbImage = BitmapUtils.getBitmapFromAssets(getActivity(), MainFilterActivity.IMAGE_NAME, 100, 100);
+                    thumbImage = BitmapFactory.decodeFile(MainFilterActivity.imagePathonly1, btmapOptions);
                 } else {
-                    Log.d(TAG,"bitmap is not null");
+                    Log.d(TAG, "bitmap is not null");
                     thumbImage = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
                 }
 
-                if (thumbImage == null)
-                {
-                    Log.d(TAG,"thumbImage is null");
+                if (thumbImage == null) {
+                    Log.d(TAG, "thumbImage is null");
                     return;
                 }
 

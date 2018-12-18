@@ -26,23 +26,6 @@ public class ThumbnailsAdapter extends RecyclerView.Adapter<ThumbnailsAdapter.My
     private Context mContext;
     private int selectedIndex = 0;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        //@BindView(R.id.thumbnail)
-        ImageView thumbnail;
-
-        //@BindView(R.id.filter_name)
-        TextView filterName;
-
-        public MyViewHolder(View view) {
-            super(view);
-
-            //ButterKnife.bind(this, view);
-            thumbnail = view.findViewById(R.id.thumbnail);
-            filterName = view.findViewById(R.id.filter_name);
-        }
-    }
-
-
     public ThumbnailsAdapter(Context context, List<ThumbnailItem> thumbnailItemList, ThumbnailsAdapterListener listener) {
         mContext = context;
         this.thumbnailItemList = thumbnailItemList;
@@ -88,5 +71,21 @@ public class ThumbnailsAdapter extends RecyclerView.Adapter<ThumbnailsAdapter.My
 
     public interface ThumbnailsAdapterListener {
         void onFilterSelected(Filter filter);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        //@BindView(R.id.thumbnail)
+        ImageView thumbnail;
+
+        //@BindView(R.id.filter_name)
+        TextView filterName;
+
+        public MyViewHolder(View view) {
+            super(view);
+
+            //ButterKnife.bind(this, view);
+            thumbnail = view.findViewById(R.id.thumbnail);
+            filterName = view.findViewById(R.id.filter_name);
+        }
     }
 }

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(),ImageCallbackActivity.class),100);
+                startActivityForResult(new Intent(getApplicationContext(), ImageCallbackActivity.class), 100);
             }
         });
     }
@@ -33,19 +33,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case 100:
-                if(resultCode == RESULT_OK)
-                {
-                    Log.d(TAG,"callback is done, RESULT_OK = "+data.getStringExtra("message"));
-                }
-                else
-                {
-                    Log.d(TAG,"callback is done, else executed");
+                if (resultCode == RESULT_OK) {
+                    Log.d(TAG, "callback is done, RESULT_OK = " + data.getStringExtra("message"));
+                } else {
+                    Log.d(TAG, "callback is done, else executed");
                 }
                 break;
-            default:break;
+            default:
+                break;
         }
     }
 }

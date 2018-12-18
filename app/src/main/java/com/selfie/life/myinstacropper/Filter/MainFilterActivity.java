@@ -33,51 +33,44 @@ import java.util.List;
 
 public class MainFilterActivity extends AppCompatActivity implements FiltersListFragment.FiltersListFragmentListener, EditImageFragment.EditImageFragmentListener {
 
-    private static final String TAG = MainFilterActivity.class.getSimpleName();
-
-    public static String  imagePathonly1 ;
-
     public static final int SELECT_GALLERY_IMAGE = 101;
-
-    //@BindView(R.id.image_preview)
-    ImageView imagePreview;
-    TextView btn_next;
-    //@BindView(R.id.tabs)
-    TabLayout tabLayout;
-
-    //@BindView(R.id.viewpager)
-    ViewPager viewPager;
-
-    Bitmap originalImage;
-    // to backup image with filter applied
-    Bitmap filteredImage;
-
-    // the final image after applying
-    // brightness, saturation, contrast
-    Bitmap finalImage;
-
-    FiltersListFragment filtersListFragment;
-    EditImageFragment editImageFragment;
-
-    // modified image values
-    int brightnessFinal = 0;
-    float saturationFinal = 1.0f;
-    float contrastFinal = 1.0f;
+    private static final String TAG = MainFilterActivity.class.getSimpleName();
+    public static String imagePathonly1;
 
     // load native image filters library
     static {
         System.loadLibrary("NativeImageProcessor");
     }
 
+    //@BindView(R.id.image_preview)
+    ImageView imagePreview;
+    TextView btn_next;
+    //@BindView(R.id.tabs)
+    TabLayout tabLayout;
+    //@BindView(R.id.viewpager)
+    ViewPager viewPager;
+    Bitmap originalImage;
+    // to backup image with filter applied
+    Bitmap filteredImage;
+    // the final image after applying
+    // brightness, saturation, contrast
+    Bitmap finalImage;
+    FiltersListFragment filtersListFragment;
+    EditImageFragment editImageFragment;
+    // modified image values
+    int brightnessFinal = 0;
+    float saturationFinal = 1.0f;
+    float contrastFinal = 1.0f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_filter);
 
-        Log.d(TAG,"hellow  >"+imagePathonly1);
+        Log.d(TAG, "hellow  >" + imagePathonly1);
         //ButterKnife.bind(this);
 
-      // String getDataIntent= getIntent().getParcelableExtra("BitmapImage");
+        // String getDataIntent= getIntent().getParcelableExtra("BitmapImage");
 
        /* imagePath1 = MyConfiguration.getPreferences(getApplicationContext(), "imagepath").replace("file://", "");
         Log.d(TAG,  " calledfinal  >"+imagePath1);
@@ -87,13 +80,13 @@ public class MainFilterActivity extends AppCompatActivity implements FiltersList
 */
         getSupportActionBar().hide();
         imagePreview = findViewById(R.id.image_preview);
-        btn_next=findViewById(R.id.btn_next);
+        btn_next = findViewById(R.id.btn_next);
         viewPager = findViewById(R.id.viewpager);
 
         setupViewPager(viewPager);
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        imagePathonly1 =String.valueOf(getIntent().getData()).replace("file://", "");
+        imagePathonly1 = String.valueOf(getIntent().getData()).replace("file://", "");
         loadImage();
 
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -191,45 +184,14 @@ public class MainFilterActivity extends AppCompatActivity implements FiltersList
         contrastFinal = 1.0f;
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
-    // load the default image from assets on app launch
-
     private void loadImage() {
 
-       // Uri imagepath= Uri.parse(imagePath1);
+        // Uri imagepath= Uri.parse(imagePath1);
         // Log.d(TAG,"lastfinakimage >"+imagepath);
-       // Log.d(TAG,"result value  >"+imagePathonly);
+        // Log.d(TAG,"result value  >"+imagePathonly);
         // Uri imageUri = getIntent().getData();
 
-        Log.d(TAG,"lastfinakimage111 >"+imagePathonly1);
+        Log.d(TAG, "lastfinakimage111 >" + imagePathonly1);
 
         BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
         originalImage = BitmapFactory.decodeFile(String.valueOf(imagePathonly1), btmapOptions);
@@ -237,7 +199,9 @@ public class MainFilterActivity extends AppCompatActivity implements FiltersList
         finalImage = originalImage.copy(Bitmap.Config.ARGB_8888, true);
         imagePreview.setImageBitmap(originalImage);
 
-        }
+    }
+
+    // load the default image from assets on app launch
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -296,7 +260,7 @@ public class MainFilterActivity extends AppCompatActivity implements FiltersList
                 }
                 break;
 
-    }
+        }
 
     }
 
@@ -305,16 +269,46 @@ public class MainFilterActivity extends AppCompatActivity implements FiltersList
         intent.setType("image/*");
         startActivityForResult(intent, SELECT_GALLERY_IMAGE);
 
-        }
-        /*
-    * saves image to camera gallery
-    * */
+    }
+
+    /*
+     * saves image to camera gallery
+     * */
     private void saveImageToGallery() {
 
         final String path = BitmapUtils.insertImage(getContentResolver(), finalImage, System.currentTimeMillis() + "_profile.jpg", null);
         Toast.makeText(this, "Save image from gallary", Toast.LENGTH_SHORT).show();
-        Log.d(TAG,"pathgetter  >"+path);
+        Log.d(TAG, "pathgetter  >" + path);
 
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
 
