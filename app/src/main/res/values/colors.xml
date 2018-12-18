@@ -6,4 +6,7 @@
 
     <color name="instacropper_cropper_background">@android:color/white</color>
 
+    <color name="filter_label_normal">#8A8889</color>
+    <color name="filter_label_selected">#221F20</color>
+
 </resources>

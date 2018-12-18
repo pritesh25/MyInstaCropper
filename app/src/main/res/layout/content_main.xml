@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Filter.MainFilterActivity"
+    tools:showIn="@layout/activity_main_filter">
+    <com.selfie.life.myinstacropper.Filter.Utils.ToolbarLinearLayout
+        android:elevation="@dimen/ten"
+        android:padding="@dimen/ten"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/btn_next"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_margin="@dimen/padding_10"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+    </com.selfie.life.myinstacropper.Filter.Utils.ToolbarLinearLayout>
+
+
+    <com.selfie.life.myinstacropper.SqaureImageView
+        android:id="@+id/image_preview"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
+
+    <com.selfie.life.myinstacropper.Filter.Utils.NonSwipeableViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_above="@+id/tabs"
+        android:layout_below="@+id/image_preview"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:tabGravity="fill"
+        app:tabMode="fixed" />
+
+</RelativeLayout>

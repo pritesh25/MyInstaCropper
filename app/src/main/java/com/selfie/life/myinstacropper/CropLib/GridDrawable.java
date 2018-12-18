@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper.Lib;
+package com.selfie.life.myinstacropper.CropLib;
 
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
@@ -23,10 +23,6 @@ public class GridDrawable extends Drawable {
     private static final long TIME_BEFORE_FADE = 300;
     private static final long TIME_TO_FADE = 300;
 
-    private Handler mHandler;
-
-    private Rect mPreviousBounds = new Rect();
-
     private Paint mLinePaint;
     private Paint mLineBorderPaint;
 
@@ -35,7 +31,6 @@ public class GridDrawable extends Drawable {
     private float mAlpha = 1;
 
     protected GridDrawable() {
-        mHandler = new Handler();
 
         mLinePaint = new Paint();
         mLinePaint.setStyle(Paint.Style.STROKE);

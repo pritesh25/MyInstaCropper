@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper.Lib;
+package com.selfie.life.myinstacropper.CropLib;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,14 +8,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.selfie.life.myinstacropper.Filter.MainFilterActivity;
 import com.selfie.life.myinstacropper.R;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
+
 
 /**
  * Created by Yashar on 3/11/2017.
@@ -24,6 +28,7 @@ import java.io.OutputStream;
 public class ImageCropperActivity extends Activity {
 
     private static final int DEFAULT_OUTPUT_QUALITY = 50;
+    private static final String TAG = ImageCropperActivity.class.getSimpleName();
 
     public static final String EXTRA_OUTPUT = MediaStore.EXTRA_OUTPUT;
 
@@ -148,7 +153,7 @@ public class ImageCropperActivity extends Activity {
                 protected Boolean doInBackground(Void... params) {
                     try {
                         OutputStream os = getContentResolver().openOutputStream(mOutputUri);
-
+                        Log.d(TAG,"cropperImag  >"+mOutputUri);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, mOutputQuality, os);
 
                         os.flush();
@@ -166,6 +171,8 @@ public class ImageCropperActivity extends Activity {
                         Intent data = new Intent();
                         data.setData(mOutputUri);
                         setResult(RESULT_OK, data);
+
+
                     }
                     else {
                         setResult(RESULT_CANCELED);

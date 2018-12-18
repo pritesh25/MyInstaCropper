@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper.Lib;
+package com.selfie.life.myinstacropper.CropLib;
 
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;

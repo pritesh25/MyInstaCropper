@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#888">
 
-    <com.selfie.life.myinstacropper.Lib.InstaCropperView
+    <com.selfie.life.myinstacropper.CropLib.InstaCropperView
         android:id="@+id/instacropper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

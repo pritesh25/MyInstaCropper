@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="thumbnail_size">80dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="margin_horizontal">16dp</dimen>
+    <dimen name="lbl_edit_image_control">100dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="ten">10sp</dimen>
+
+    <!--multiple and single image selector-->
+
+    <!-- VIDEO TRIMMER-->
+
+    <!--material fab animation-->
+
+
+    <!--mx video resource (stream)-->
+</resources>

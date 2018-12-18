@@ -1,4 +1,4 @@
-package com.selfie.life.myinstacropper.Lib;
+package com.selfie.life.myinstacropper.CropLib;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.selfie.life.myinstacropper.Filter.MainFilterActivity;
 import com.selfie.life.myinstacropper.R;
 
 import java.io.File;
@@ -61,6 +62,9 @@ public class ImageCallbackActivity extends AppCompatActivity {
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
+
+                  //  Uri selectedImage = data.getData();
+
                     Intent intent = ImageCropperActivity.getIntent(this, data.getData(), Uri.fromFile(new File(getExternalCacheDir(), "test.jpg")), 720, 50);
                     startActivityForResult(intent, 2);
                 }
@@ -72,7 +76,21 @@ public class ImageCallbackActivity extends AppCompatActivity {
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
+                    // MyConfiguration.setPreferences(getApplicationContext(),"imagepath",data.getData().toString());
                     Log.d(TAG,"resultCode 2, data = "+data.getData());
+                    Intent intent = new Intent(getApplicationContext(),MainFilterActivity.class);
+                    intent.setData(data.getData());
+                    startActivityForResult(intent, 3);
+                    }
+                else
+                {
+                    Log.d(TAG,"requestCode 2 is not executed , finish called , since no image is selected");
+                    finish();
+                }
+                break;
+            case 3:
+                if (resultCode == RESULT_OK) {
+                    Log.d(TAG,"resultCode 21, data = "+data.getData());
                     mInstaCropper.setImageUri(data.getData());
                 }
                 else
@@ -104,6 +122,7 @@ public class ImageCallbackActivity extends AppCompatActivity {
 
                 File file = getFile();
                 try {
+
                     FileOutputStream os = new FileOutputStream(file);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, os);
                     os.flush();
