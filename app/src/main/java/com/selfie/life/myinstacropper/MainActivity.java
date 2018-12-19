@@ -26,6 +26,8 @@ import com.selfie.life.myinstacropper.SqaureCamera.ImageUtility;
 
 public class MainActivity extends AppCompatActivity {
 
+    //editted by patil
+
     private static final String TAG = MainActivity.class.getSimpleName();
     Button button,capturebutton;
 
