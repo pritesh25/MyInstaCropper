@@ -276,9 +276,16 @@ public class MainFilterActivity extends AppCompatActivity implements FiltersList
      * */
     private void saveImageToGallery() {
 
+//        final String path = BitmapUtils.insertImage(getContentResolver(), finalImage, System.currentTimeMillis() + "_profile.jpg", null);
+//        Toast.makeText(this, "Save image from gallary", Toast.LENGTH_SHORT).show();
+//        Log.d(TAG, "pathgetter  >" + path);
+
         final String path = BitmapUtils.insertImage(getContentResolver(), finalImage, System.currentTimeMillis() + "_profile.jpg", null);
-        Toast.makeText(this, "Save image from gallary", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "pathgetter  >" + path);
+        Log.d(TAG,"crop path = "+path);
+        Intent intent = getIntent();
+        intent.putExtra("MESSAGE", path);
+        setResult(RESULT_OK,intent);
+        finish();
 
     }
 

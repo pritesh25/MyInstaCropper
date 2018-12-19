@@ -1,13 +1,17 @@
 package com.selfie.life.myinstacropper;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -21,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.selfie.life.myinstacropper.CropLib.ImageCallbackActivity;
+import com.selfie.life.myinstacropper.Filter.MainFilterActivity;
 import com.selfie.life.myinstacropper.SqaureCamera.CameraActivity;
 import com.selfie.life.myinstacropper.SqaureCamera.ImageUtility;
 
@@ -31,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     Button button,capturebutton;
 
-    private static final int REQUEST_CAMERA = 0;
-    private static final int REQUEST_CAMERA_PERMISSION = 1;
+    private static final int     REQUEST_CAMERA              = 10;
+    private static final int     REQUEST_CAMERA_PERMISSION   = 11;
+    private static final int     REQUEST_IMAGE_FILTER        = 2;
+    private static final int     REQUEST_MAIN_IMAGE_CROP     = 3;
+    private static final int     REQUEST_IMAGE_CROP_RESULT   = 4;
+    private static final int     REQUEST_ADD_MEMBER          = 5;
     private Point mSize;
 
     @Override
@@ -70,20 +79,55 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case 100:
                 if (resultCode == RESULT_OK) {
-                    Log.d(TAG, "callback is done, RESULT_OK = " + data.getStringExtra("message"));
+                    Log.d(TAG, "callback is done, RESULT_OK = " + data.getStringExtra("MESSAGE"));
+
+                    ((ImageView) findViewById(R.id.image)).setImageBitmap(BitmapFactory.decodeFile(data.getStringExtra("MESSAGE")));
+
                 } else {
                     Log.d(TAG, "callback is done, else executed");
                 }
                 break;
+
             case REQUEST_CAMERA:
-                Uri photoUri = data.getData();
-                // Get the bitmap in according to the width of the device
-                Bitmap bitmap = ImageUtility.decodeSampledBitmapFromPath(photoUri.getPath(), mSize.x, mSize.x);
-                ((ImageView) findViewById(R.id.image)).setImageBitmap(bitmap);
+
+                Intent intent = new Intent(getApplicationContext(),MainFilterActivity.class);
+                intent.setData(data.getData());
+                startActivityForResult(intent,3);
+
+                break;
+
+            case 3:
+                if (resultCode == RESULT_OK)
+                {
+                    String imagePath = data.getStringExtra("MESSAGE");
+                    Log.d(TAG,"requestCode 3 if executed , imagePath = "+imagePath);
+                    Log.d(TAG,"requestCode 3 if executed , real path = "+getRealPathFromURI(getApplicationContext(),Uri.parse(imagePath)));
+                    Bitmap bitmap = ImageUtility.decodeSampledBitmapFromPath(getRealPathFromURI(getApplicationContext(),Uri.parse(imagePath)), mSize.x, mSize.x);
+                    ((ImageView) findViewById(R.id.image)).setImageBitmap(bitmap);
+                }
+                else
+                {
+                    Log.d(TAG,"requestCode 3 else executed");
+                }
                 break;
             default:
 
                 break;
+        }
+    }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
     }
 
@@ -112,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         } else {
+
             launch();
         }
     }
