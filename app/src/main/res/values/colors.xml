@@ -9,4 +9,9 @@
     <color name="filter_label_normal">#8A8889</color>
     <color name="filter_label_selected">#221F20</color>
 
+    <color name="squarecamera__red">#F0001D</color>
+    <color name="squarecamera__pressed_red">#B3F0001D</color>
+    <color name="squarecamera__white">#FFFFFF</color>
+    <color name="squarecamera__pressed_white">#99FFFFFF</color>
+
 </resources>

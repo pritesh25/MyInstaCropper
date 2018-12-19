@@ -26,6 +26,8 @@
         <activity android:name=".CropLib.ImageCropperActivity" />
         <activity android:name=".Filter.MainFilterActivity" />
 
+        <activity android:name=".SqaureCamera.RuntimePermissionActivity" android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI" />
+        <activity android:name=".SqaureCamera.CameraActivity" />
     </application>
 
 </manifest>

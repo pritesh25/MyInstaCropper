@@ -1,19 +1,24 @@
 package com.selfie.life.myinstacropper;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-public class SqaureImageView extends ImageView {
-    public SqaureImageView(Context context) {
+/**
+ * Created by Pritesh on 3/21/2018.
+ */
+
+public class MySquareImageView extends ImageView {
+    public MySquareImageView(Context context) {
         super(context);
     }
 
-    public SqaureImageView(Context context,AttributeSet attrs) {
+    public MySquareImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SqaureImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MySquareImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
