@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 showPermissionRationaleDialog("Test", permission);
             } else {
                 requestForPermission(permission);
+
             }
         } else {
             launch();
